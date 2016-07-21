@@ -12,11 +12,15 @@ def init():
     with open('config.json') as data_file:
         data = json.load(data_file)
         # get list of pokemon to send notifications for
-        wanted_pokemon = _str( data["notify"] ) . split(",")
+        #
+        # wanted_pokemon = _str( data["notify"] ) . split(",")
+        wanted_pokemon = _str( os.environ(["notify"]) ) . split(",")
         # transform to lowercase
         wanted_pokemon = [a.lower() for a in wanted_pokemon]
+
         # get api key
-        api_key = _str( data["pushbullet"] )
+        # api_key = _str( data["pushbullet"] )
+        api_key = os.environ(["pushbullet"])
         if api_key:
             pushbullet_client = Pushbullet(api_key)
 

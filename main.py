@@ -39,14 +39,18 @@ LOGIN_URL = \
 LOGIN_OAUTH = 'https://sso.pokemon.com/sso/oauth2.0/accessToken'
 APP = 'com.nianticlabs.pokemongo'
 
-with open('credentials.json') as file:
-	credentials = json.load(file)
+# with open('credentials.json') as file:
+# 	credentials = json.load(file)
 
-PTC_CLIENT_SECRET = credentials.get('ptc_client_secret', None)
-ANDROID_ID = credentials.get('android_id', None)
-SERVICE = credentials.get('service', None)
-CLIENT_SIG = credentials.get('client_sig', None)
-GOOGLEMAPS_KEY = credentials.get('gmaps_key', None)
+PTC_CLIENT_SECRET = os.environ.get('ptc_client_secret')
+ANDROID_ID = os.environ.get('android_id')
+SERVICE = os.environ.get('service')
+CLIENT_SIG = os.environ.get('client_sig')
+GOOGLEMAPS_KEY = os.environ.get('gmaps_key')
+username = os.environ(['username'])
+password = os.environ(['password'])
+location = os.environ(['location'])
+step_limit = os.environ(['step_limit'])
 
 SESSION = requests.session()
 SESSION.headers.update({'User-Agent': 'Niantic App'})
@@ -530,7 +534,7 @@ def main():
     # only get location for first run
     if not (FLOAT_LAT and FLOAT_LONG):
       print('[+] Getting initial location')
-      retrying_set_location(args.location)
+      retrying_set_location(os.environ(['location']))
 
     if args.auto_refresh:
         global auto_refresh
