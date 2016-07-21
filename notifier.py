@@ -1,6 +1,7 @@
 import json
 from pushbullet import Pushbullet
 from datetime import datetime
+import os
 
 pushbullet_client = None
 wanted_pokemon = None
